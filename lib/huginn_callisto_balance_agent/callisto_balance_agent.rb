@@ -85,6 +85,8 @@ module Agents
         end
 
         payload = response.body
+        payload = JSON.parse(payload)
+        payload.merge!({ :address => wallet, :crypto => "CLO" })
 
         if interpolated['changes_only'] == 'true'
           if payload.to_s != memory['last_status']
