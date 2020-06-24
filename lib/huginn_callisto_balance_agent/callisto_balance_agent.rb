@@ -6,18 +6,17 @@ module Agents
 
     description do
       <<-MD
-      The Callisto wallet value agent fetches callisto's wallet value from callisto explorer
+      The Callisto balance agent fetches callisto's balance from callisto explorer
       MD
     end
 
     event_description <<-MD
       Events look like this:
         {
-          "status": 200,
-          "headers": {
-            ...
-          },
-          "body": "{\"balance\":\"XXXXXX.XXXXXXXXX\",\"balanceUSD\":XX.XXXXXXXXX}",
+          "balance": xxxx,
+          "balanceUSD": xxxx,
+          "address": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "crypto": "CLO"
         }
     MD
 
