@@ -1,5 +1,7 @@
 module Agents
   class CallistoBalanceAgent < Agent
+    include FormConfigurable
+
     can_dry_run!
     no_bulk_receive!
     default_schedule "never"
@@ -7,6 +9,9 @@ module Agents
     description do
       <<-MD
       The Callisto balance agent fetches callisto's balance from callisto explorer
+
+      `expected_receive_period_in_days` is used to determine if the Agent is working. Set it to the maximum number of days
+      that you anticipate passing without this Agent receiving an incoming Event.
       MD
     end
 
@@ -23,9 +28,14 @@ module Agents
     def default_options
       {
         'wallet_address' => '',
+        'expected_receive_period_in_days' => '2',
         'changes_only' => 'true'
       }
     end
+
+    form_configurable :expected_receive_period_in_days, type: :string
+    form_configurable :wallet_address, type: :string
+    form_configurable :changes_only, type: :boolean
 
     def validate_options
       unless options['wallet_address'].present?
@@ -36,8 +46,8 @@ module Agents
         errors.add(:base, "if provided, changes_only must be true or false")
       end
 
-      if options['output_mode'].present? && !options['output_mode'].to_s.include?('{') && !%[clean merge].include?(options['output_mode'].to_s)
-        errors.add(:base, "if provided, output_mode must be 'clean' or 'merge'")
+      unless options['expected_receive_period_in_days'].present? && options['expected_receive_period_in_days'].to_i > 0
+        errors.add(:base, "Please provide 'expected_receive_period_in_days' to indicate how many days can pass before this Agent is considered to be not working")
       end
     end
 
