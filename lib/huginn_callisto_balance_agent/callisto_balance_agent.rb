@@ -71,17 +71,16 @@ module Agents
 
     def handle(wallet)
 
-        uri = URI.parse("https://explorer2.callisto.network/web3relay")
+        uri = URI.parse("https://explorer.callisto.network/web3relay")
         request = Net::HTTP::Post.new(uri)
         request.content_type = "application/json;charset=UTF-8"
-        request["Authority"] = "explorer2.callisto.network"
+        request["Authority"] = "explorer.callisto.network"
         request["Accept"] = "application/json, text/plain, */*"
-        request["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"
-        request["Origin"] = "https://explorer2.callisto.network"
+        request["Origin"] = "https://explorer.callisto.network"
         request["Sec-Fetch-Site"] = "same-origin"
         request["Sec-Fetch-Mode"] = "cors"
         request["Sec-Fetch-Dest"] = "empty"
-        request["Referer"] = "https://explorer2.callisto.network/addr/#{wallet}"
+        request["Referer"] = "https://explorer.callisto.network/addr/#{wallet}"
         request["Accept-Language"] = "fr,en-US;q=0.9,en;q=0.8"
         request.body = '{"addr":"' + wallet + '","options":["balance"]}'
 
