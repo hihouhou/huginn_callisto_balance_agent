@@ -94,22 +94,25 @@ module Agents
         http.request(request)
       end
 
-      payload = response.body
+      log "fetch event request status : #{response.code}"
+
+      payload = JSON.parse(response.body)
+      parsed = JSON.parse(response.body)
+
       if interpolated['debug'] == 'true'
         log payload
       end
-      payload = JSON.parse(payload)
       power = 10 ** interpolated['decimal'].to_i
       value = payload['result'].to_f / power.to_i
-      payload.merge!({ :address => wallet, :crypto => "CLO", :value => value })
+      parsed.merge!({ "address" => wallet, "crypto" => "CLO", "value" => value })
 
       if interpolated['changes_only'] == 'true'
         if payload.to_s != memory['last_status']
           memory['last_status'] = payload.to_s
-          create_event payload: payload
+          create_event payload: parsed
         end
       else
-        create_event payload: payload
+        create_event payload: parsed
         if payload.to_s != memory['last_status']
           memory['last_status'] = payload.to_s
         end
