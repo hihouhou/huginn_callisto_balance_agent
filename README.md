@@ -1,5 +1,6 @@
 # CallistoBalanceAgent
 
+Archived because now -> [BETTER AGENT](https://github.com/hihouhou/huginn_callisto_network_agent)
 Welcome to your new agent gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/huginn_callisto_balance_agent`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 TODO: Delete this and the text above, and describe your gem
